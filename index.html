@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>All Aboard! Traintime!</title>
+</head>
+
+<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="    sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"   crossorigin="anonymous">
+
+<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+<body>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Traintime!</h1>
+			<p>If you want to you can ride it, you got to ride it like you find it - Get you ticket at the station for the Rock Island Line!</p>
+			<p><a class="btn btn-primary btn-lg" href="#" role="button" id="submit">Submit</a></p>
+
+			<div class="input-group input-group-md">
+				<input type="text" class="form-control" placeholder="Train Name" id="in_trainName">
+				<input type="text" class="form-control" placeholder="Destination" id="in_dest">
+				<input type="text" class="form-control" placeholder="First Train" id="in_1stTrain">
+				<input type="text" class="form-control" placeholder="Frequency minutes"  id="in_frequency">
+
+			</div>
+		</div>
+	</div>
+	<div class="wellb" id="firstTrain"></div>
+	<div class="wellb" id="frequency"></div>
+	<div class="wellb" id="nextTrain"></div>
+
+	<div class="well"></div>
+	<script type="text/javascript" src="assets/javascript/app.js"></script>
+</body>
+</html>
