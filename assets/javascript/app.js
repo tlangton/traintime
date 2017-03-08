@@ -27,6 +27,9 @@ trainOneMins = 100;
 frequencyMins = 60;
 
 
+var nowMinsAfterMdnt = (moment().get('hour') * 60 ) + moment().get('minute');
+
+
 $("#submit").click(function(){
 
         // alert("Value: " + $("#in_1stTrain").val
@@ -36,20 +39,15 @@ $("#submit").click(function(){
         var destination = $("#in_dest").val().trim();
 
 
-   firebaseRef.push({
-    firstTrain: trainOneMins,
-    nameTrain: trainName,
-    dest: destination,
-    frequency: frequencyMins,
-    timestampCreated: firebase.database.ServerValue.TIMESTAMP
-});
+        firebaseRef.push({
+            firstTrain: trainOneMins,
+            nameTrain: trainName,
+            dest: destination,
+            frequency: frequencyMins,
+            timestampCreated: firebase.database.ServerValue.TIMESTAMP
+        });
 
 
-
-
-
-        var nowMinsAfterMdnt = (moment().get('hour') * 60 ) + moment().get('minute');
-        console.log("now Mins After Mdnt " + nowMinsAfterMdnt);
 
         var difNowFirstMins = nowMinsAfterMdnt - trainOneMins;
         console.log("dif now from first " + difNowFirstMins);
@@ -61,16 +59,10 @@ $("#submit").click(function(){
         console.log("mod dif over frequency " + modDiff_Freq);
 
         var nextTrainMins = frequencyMins - ( frequencyMins * modDiff_Freq );
-        console.log("next Train Mins " + nextTrainMins);
-
+        console.log("next Train Mins " + nextTrainMins)
 
         var timeNextTrain = moment().add(nextTrainMins, "minutes").format("HH:mm");
         console.log("time Next Train " + timeNextTrain);
-
-
-        console.log(moment().format("HH:mm"));
-
-
 
 
         $("#firstTrain").html("First train (mins after midnite): " + trainOneMins);
@@ -78,9 +70,9 @@ $("#submit").click(function(){
         $("#frequency").html("Frequency: " + frequencyMins);
 
         $("#nextTrain").html("Next Train: " + timeNextTrain);
-});
+    });
 
-        firebaseRef.on("value", function(snapshot) {
+firebaseRef.on("value", function(snapshot) {
 
         // Print the initial data to the console.
         console.log(snapshot.val());
@@ -90,21 +82,44 @@ $("#submit").click(function(){
          // $("#nextTrain").html(snapshot.val().firstTrain);
 
 
-
-
       // If any errors are experienced, log them to console.
   }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
   });
 
 
- firebaseRef.ref.orderByChild( "timestampCreated").on("child_added", function(snapshot) {
-$(".well").append("<p>"+snapshot.val().firstTrain+"</p>");
+$(".well").append("<table><tr><th>Train Name:</th><th>Destination:</th><th>First Train:</th><th>Next Train:</th><th>Next Arrival:</th><th>Frequency:</th></tr>");
 
-$(".well").append("<p>"+ (snapshot.val().firstTrain)+(snapshot.val().firstTrain)+"</p>");
+
+firebaseRef.ref.orderByChild( "timestampCreated").on("child_added", function(snapshot) {
+
+    console.log(snapshot);
+
+ var difNowFirstMins = nowMinsAfterMdnt - (snapshot.val().firstTrain);
+ var diffOverFrequency = difNowFirstMins / (snapshot.val().frequency);
+ var modDiff_Freq = (difNowFirstMins % (snapshot.val().frequency)) / (snapshot.val().frequency) ;
+ var nextTrainMins = (snapshot.val().frequency) - ( (snapshot.val().frequency) * modDiff_Freq );
+ var timeNextTrain = moment().add(nextTrainMins, "minutes").format("HH:mm");
+
+
+    $(".well").append("<tr>");
+    $(".well").append("<td>"+snapshot.val().nameTrain+"</td>");
+
+    $(".well").append("<td>"+ (snapshot.val().dest)+"</td>");
+
+    $(".well").append("<td>"+snapshot.val().firstTrain+"</td>");
+
+    $(".well").append("<td>"+ timeNextTrain+"</td>");
+
+    $(".well").append("<td>"+ (nextTrainMins)+" minutes</td>");
+
+      $(".well").append("<td>"+ (snapshot.val().frequency)+"</td>");
+
+    $(".well").append("</tr>");
+
 });
 
-
+$(".well").append("<table>");
 
 
 

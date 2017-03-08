@@ -1,0 +1,8 @@
+td, th {
+	width: 200px;
+}
+
+th {
+font-style: oblique;
+font-size: 18px;
+}
