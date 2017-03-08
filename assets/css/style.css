@@ -4,5 +4,17 @@ td, th {
 
 th {
 font-style: oblique;
-font-size: 18px;
+font-size: 16px;
 }
+
+/*td {
+	background-color: gray;
+}*/
+
+.edit {
+	color: blue;
+}
+
+#id {
+color: red;
+};
