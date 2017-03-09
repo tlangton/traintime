@@ -18,3 +18,17 @@ font-size: 16px;
 #id {
 color: red;
 };
+
+
+.train-row {
+cursor:pointer;
+}
+
+.btn btn-primary btn-md {
+	padding-top: 25px;
+}
+
+
+.train-row:hover {
+    background-color: lightyellow;
+}

@@ -18,23 +18,33 @@
 	<div class="jumbotron">
 		<div class="container">
 			<h1>Traintime!</h1>
-			<p>If you want to you can ride it, you got to ride it like you find it - Get you ticket at the station for the Rock Island Line!</p>
-			<p><a class="btn btn-primary btn-lg" href="#" role="button" id="submit">Submit</a></p>
+			<p>If you want to you can ride it, you got to ride it like you find it - Get your ticket at the station for the Rock Island Line!</p>
 
-			<div class="input-group input-group-md">
-				<input type="text" class="form-control" placeholder="Train Name" id="in_trainName">
-				<input type="text" class="form-control" placeholder="Destination" id="in_dest">
-				<input type="text" class="form-control" placeholder="First Train Arrives (24 hr HHMM format)" id="in_1stTrain">
-				<input type="text" class="form-control" placeholder="Frequency minutes"  id="in_frequency">
+			<div class="well"></div>
+			<p>Click Train to edit or delete.</p>
+			<div class="col-md-6" >
 
+				<div class="input-group input-group-md">
+					<input type="text" class="form-control" placeholder="Train Name" id="in_trainName">
+					<input type="text" class="form-control" placeholder="Destination" id="in_dest">
+					<input type="text" class="form-control" placeholder="First Train Arrives (24 hr HH:MM format)" id="in_1stTrain">
+					<input type="text" class="form-control" placeholder="Frequency minutes"  id="in_frequency">
+				</div>
+
+				<p>
+				</p>
+				<p>
+					<a class="btn btn-primary btn-md" href="#" role="button" id="submit">Submit</a>
+					<a class="btn btn-primary btn-md" href="#" role="button" id="clear">Clear</a>
+				</p>
 			</div>
+
+
 		</div>
 	</div>
-	<div class="wellb" id="firstTrain"></div>
-	<div class="wellb" id="frequency"></div>
-	<div class="wellb" id="nextTrain"></div>
 
-	<div class="well"></div>
+
+
 	<script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>
 </html>
