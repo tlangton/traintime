@@ -22,11 +22,27 @@ cursor:pointer;
     background-color: lightyellow;
 }
 
+.hilite {
+    background-color: yellow;
+}
+
 
 .visible {
-	visibility: visible
+	display: inline;
 }
 
 .hidden {
-	visibility: hidden
+	display: none;
+}
+
+.buttonBlock {
+	  display: inline;
+
+}
+
+body {
+    background-image: url("../images/rockisland1937.jpg");
+    background-repeat: no-repeat;
+
+background-position: 0px 600px;
 }

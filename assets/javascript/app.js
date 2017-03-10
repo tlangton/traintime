@@ -79,7 +79,8 @@ firebase.database().ref("trains/"+butID).update({
 });
 //clean up form
 clearInput();
-
+resetButtons();
+reloadPage()
 });
 
 //delete train
@@ -88,13 +89,15 @@ $("#remove").click(function(){
 firebase.database().ref("trains/"+butID).remove();
 //clean up form
 clearInput();
-
+resetButtons();
+reloadPage()
 });
 
 
 //clear train entry fields
 $("#clear").click(function(){
     clearInput();
+resetButtons();
 });
 
 //output table
@@ -161,6 +164,10 @@ $(".well").on("click", ".train-row", function(){
    $("#in_1stTrain").val(trainFirst);
    $("#in_frequency").val(trainFreqFix);
 
+   $("#submit").addClass("invisible").removeClass("visible");
+   $("#update").addClass("visible").removeClass("invisible");
+   $("#remove").addClass("visible").removeClass("invisible");
+
    //ref for editing trains
 var firebaseRefKey = firebase.database().ref("trains/"+butID);
   console.log (firebaseRefKey);
@@ -168,69 +175,40 @@ var firebaseRefKey = firebase.database().ref("trains/"+butID);
  // alert(trainName)
 });
 
+function resetButtons() {
+    $("#submit").addClass("visible").removeClass("invisible");
+   $("#update").addClass("invisible").removeClass("visible");
+   $("#remove").addClass("invisible").removeClass("visible");
+}
 
-// $(".well").click(function(){
-//     alert("The paragraph was clicked.");
-// });
-
-
-
-
-
+function reloadPage() {
+    location.reload();
+}
 
 //output table  REMOVED
 
-$(".well").html("<table><tr><th>Train Name:</th><th>Destination:</th><th>First Train:</th><th>Next Train:</th><th>Next Arrival:</th><th>Frequency:</th></tr>");
+// $(".well").html("<table><tr><th>Train Name:</th><th>Destination:</th><th>First Train:</th><th>Next Train:</th><th>Next Arrival:</th><th>Frequency:</th></tr>");
 
-firebaseRef.ref.orderByChild( "timestampCreated").on("child_removed", function(snapshot) {
+// firebaseRef.ref.orderByChild( "timestampCreated").on("child_removed", function(snapshot) {
 
-    // console.log(snapshot);
-    var MinsAfterMidnight_currentTime = (moment().get('hour') * 60 ) + moment().get('minute');
-    var timestampCreated = snapshot.val().timestampCreated;
-    var frequency = snapshot.val().frequency;
-    var nameTrain = snapshot.val().nameTrain;
-    var MinsAfterMidnight_firstTrain = snapshot.val().firstTrain;
-    var train1Input = snapshot.val().train1Input;
-    var dest = snapshot.val().dest;
-    var key = snapshot.key;
-
-    //calcs
-    //if first train arrived before now today
-    if (MinsAfterMidnight_currentTime > MinsAfterMidnight_firstTrain) {
-        //difference in minutes between now and first train arrival
-        var delta_currentTime_firstTrainTime = MinsAfterMidnight_currentTime - MinsAfterMidnight_firstTrain  ;
-        //minutes (above) divided by frequency - how many trains so far and remainder
-        var diffOverFrequency = delta_currentTime_firstTrainTime / frequency;
-
-        var modulusDiff_Freq = (delta_currentTime_firstTrainTime % frequency) / (frequency) ;
-        var nextTrainMins =   Math.floor((frequency) - ( frequency * modulusDiff_Freq ));
-        var timeNextTrain = moment().add(nextTrainMins, "minutes").format("HH:mm");
-    } else {
-    // future first train - will arrive after now
-    var nextTrainMins = MinsAfterMidnight_firstTrain - MinsAfterMidnight_currentTime;
-    var timeNextTrain = train1Input;
-}
-var $trainRow = $("<tr>")
-$trainRow.addClass('train-row')
-$trainRow.attr('id', key)
-$trainRow.css({cursor: 'pointer'})
-$trainRow.append("<td class='train-name'>"+ nameTrain +"</td>");
-$trainRow.append("<td class='train-dest'>"+ dest +"</td>");
-$trainRow.append("<td class='train-first'>"+ train1Input +"</td>");
-$trainRow.append("<td>"+ timeNextTrain+"</td>");
-$trainRow.append("<td>"+ nextTrainMins +" minutes</td>");
-$trainRow.append("<td class='train-frequency'>"+ frequency +" minutes</td>");
-$("table").append($trainRow);
-});
+// drawtable()
+// });
 
 
 
 //output table  CHANGED
 
-$(".well").html("<table><tr><th>Train Name:</th><th>Destination:</th><th>First Train:</th><th>Next Train:</th><th>Next Arrival:</th><th>Frequency:</th></tr>");
+// $(".well").html("<table><tr><th>Train Name:</th><th>Destination:</th><th>First Train:</th><th>Next Train:</th><th>Next Arrival:</th><th>Frequency:</th></tr>");
 
-firebaseRef.ref.orderByChild( "timestampCreated").on("child_changed", function(snapshot) {
+// firebaseRef.ref.orderByChild( "timestampCreated").on("child_changed", function(snapshot) {
+// drawtable();
 
+// });
+
+
+
+
+function drawtable() {
     // console.log(snapshot);
     var MinsAfterMidnight_currentTime = (moment().get('hour') * 60 ) + moment().get('minute');
     var timestampCreated = snapshot.val().timestampCreated;
@@ -268,4 +246,4 @@ $trainRow.append("<td>"+ timeNextTrain+"</td>");
 $trainRow.append("<td>"+ nextTrainMins +" minutes</td>");
 $trainRow.append("<td class='train-frequency'>"+ frequency +" minutes</td>");
 $("table").append($trainRow);
-});
+}
