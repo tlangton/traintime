@@ -98,6 +98,7 @@ reloadPage()
 $("#clear").click(function(){
     clearInput();
 resetButtons();
+butID ="";
 });
 
 //output table
@@ -167,6 +168,12 @@ $(".well").on("click", ".train-row", function(){
    $("#submit").addClass("invisible").removeClass("visible");
    $("#update").addClass("visible").removeClass("invisible");
    $("#remove").addClass("visible").removeClass("invisible");
+
+$(".train-row").removeClass("hilite");
+
+   if (butID ===$(this).attr('id')) {
+    $("#"+butID).addClass("hilite");
+}
 
    //ref for editing trains
 var firebaseRefKey = firebase.database().ref("trains/"+butID);
