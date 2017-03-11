@@ -44,5 +44,16 @@ body {
     background-image: url("../images/rockisland1937.jpg");
     background-repeat: no-repeat;
 
-background-position: 0px 600px;
+background-position: 0px 620px;
+background-color: gray;
+}
+
+
+h1 {
+	font-family: 'Diplomata SC', cursive;
+}
+
+.subhead {
+	font-family: 'Oswald', sans-serif;
+
 }
